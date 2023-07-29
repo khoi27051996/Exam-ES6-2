@@ -357,12 +357,12 @@ const getLocal = () => {
 };
 getLocal();
 
-function render() {
+function render(arrNewSx = list.arr) {
   let arr = [];
   let arr2 = [];
   let arr3 = [];
-  for (let i = 0; i < list.arr.length; i++) {
-    let ds = list.arr[i];
+  for (let i = 0; i < arrNewSx.length; i++) {
+    let ds = arrNewSx[i];
     if (ds.chucVu == "Student") {
       arr += `<tr>
       <td>${ds.maSo}</td>
@@ -493,9 +493,65 @@ getElement("#btnCapNhat").onclick = () => {
   setLocal();
 };
 
+window.sapXep = () => {
+  const parseValue = JSON.parse(localStorage.getItem("list"));
+  let arrNewSx = [];
+  for (let i = 0; i < parseValue.length; i++) {
+    let ds = parseValue[i];
+    console.log(ds);
+    if (ds.chucVu == "Student") {
+      let student = new Student(
+        ds.maSo,
+        ds.name,
+        ds.address,
+        ds.email,
+        ds.toan,
+        ds.ly,
+        ds.hoa,
+        ds.chucVu
+      );
+      arrNewSx.push(student);
+    }
+    if (ds.chucVu == "Staff") {
+      let staff = new Staff(
+        ds.maSo,
+        ds.name,
+        ds.address,
+        ds.email,
+        ds.soNgay,
+        ds.luongNgay,
+        ds.chucVu
+      );
+      arrNewSx.push(staff);
+    }
+    if (ds.chucVu == "Customer") {
+      let customer = new Customer(
+        ds.maSo,
+        ds.name,
+        ds.address,
+        ds.email,
+        ds.tenCty,
+        ds.hoaDon,
+        ds.danhGia,
+        ds.chucVu
+      );
+      arrNewSx.push(customer);
+    }
+  }
+  console.log(arrNewSx);
+  const upAndDown = getElement('#upAndDown')
+  if(upAndDown.value =='Up') {
+    arrNewSx.sort((a,b)=> a.name.trim().length - b.name.trim().length)
+    render(arrNewSx)
+  }
+  if(upAndDown.value =='Down') {
+    arrNewSx.sort((a,b)=> b.name.trim().length - a.name.trim().length)
+    render(arrNewSx)
+  }
+  
+};
 
-
-//Validation 
+//Validation
 
 function kiemTraChuoi(value, minlength, maxlength, selector, messErr) {
   if (value.trim().length < minlength || value.trim().length > maxlength) {
