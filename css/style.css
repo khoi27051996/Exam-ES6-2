@@ -1,0 +1,15 @@
+.diem_Toan,
+.diem_Ly,
+.diem_Hoa,
+.luong_Ngay,
+.so_Ngay,
+.ten_Cty,
+.hoa_Don,
+.danh_Gia {
+  display: none;
+}
+
+body {
+  background: rgb(238, 174, 202);
+  background: radial-gradient(circle, rgb(238, 174, 202) 0%, rgb(200, 148, 233) 100%);
+}/*# sourceMappingURL=style.css.map */
